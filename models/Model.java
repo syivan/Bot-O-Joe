@@ -3,25 +3,37 @@ package models;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
-public class Model {
+public abstract class Model {
 
     private final String modelName;
     private List<String> modelResponses;
     private final Scanner fileScan;
 
-    public Model(String fileName) throws FileNotFoundException  {
-        fileScan = new Scanner(new File(fileName));
+    public Model(String fileName) throws FileNotFoundException {
+        String modelFile = fileName + "bot.txt";
+        fileScan = new Scanner(new File(modelFile));
         modelName = fileScan.nextLine().substring(1);
-        //addModelResponses();
+        addModelResponses();
     }
 
-//    private addModelResponses() {
-//        while (scan.hasNextLine()) {
-//
-//        }
-//    }
+    private void addModelResponses() {
+        while (fileScan.hasNextLine()) {
+          modelResponses.add(fileScan.nextLine());
+        }
+    }
 
+    public String generateModelResponse() {
+        Random dice = new Random();
+        int responseCount = modelResponses.size();
+        return modelResponses.get(dice.nextInt(responseCount));
+    }
+
+    @Override
+    public String toString() {
+        return modelName + "{DEBUG}";
+    }
 
 }
