@@ -3,6 +3,8 @@ package actions;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
+import java.io.IOException;
+
 public class MessageReader extends ListenerAdapter {
 
     private final String prefix = "!";
@@ -13,8 +15,10 @@ public class MessageReader extends ListenerAdapter {
             new Commands().displayGuide(event);
         } else if (args[0].equalsIgnoreCase(prefix + "construct")) {
             if (args.length >= 2) {
-                new Commands().constructModel(args[1]);
+                new Commands().constructModel(event, args[1]);
             }
+        } else if (args[0].equalsIgnoreCase(prefix + "addresponse")) {
+
         }
     }
 }

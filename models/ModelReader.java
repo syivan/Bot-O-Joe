@@ -6,14 +6,14 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-public abstract class Model {
+public abstract class ModelReader {
 
     private final String modelName;
     private List<String> modelResponses;
     private final Scanner fileScan;
 
-    public Model(String fileName) throws FileNotFoundException {
-        String modelFile = fileName + "bot.txt";
+    public ModelReader(String fileName) throws FileNotFoundException {
+        String modelFile = "models/" + fileName + "bot.txt";
         fileScan = new Scanner(new File(modelFile));
         modelName = fileScan.nextLine().substring(1);
         addModelResponses();

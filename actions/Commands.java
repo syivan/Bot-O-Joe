@@ -1,11 +1,14 @@
 package actions;
 
+import models.ModelBuilder;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class Commands extends ListenerAdapter {
 
@@ -25,8 +28,21 @@ public class Commands extends ListenerAdapter {
         embed.clear();
     }
 
-    public void constructModel(String modelName) {
+    public void constructModel(GuildMessageReceivedEvent event, String model)  {
+        if (!isModelPresent(model)) {
+            model = model.toLowerCase();
+            ModelBuilder modelBuild = new ModelBuilder(model);
+            modelBuild.buildModelFile();
+        } else
+            event.getMessage().reply(String.format("Whoops model %s already exists", model)).queue();
+    }
 
+    private boolean isModelPresent(String model) {
+        String fileDir = "models/" + model + "bot.txt";
+        File tempFile = new File(fileDir);
+        boolean isPresent = tempFile.exists();
+        System.out.println(isPresent);
+        return isPresent;
     }
 
 

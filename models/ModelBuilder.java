@@ -1,26 +1,34 @@
 package models;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class ModelBuilder {
 
-    public ModelBuilder(String modelName) throws IOException {
-        FileWriter modelWriter = new FileWriter(modelName + "bot.txt", true);
+    private String modelName;
 
+    public ModelBuilder(String modelName) {
+        this.modelName = modelName.toLowerCase();
     }
 
-    public boolean isModelPresent(String fileName) {
-        String dir = "C:\\Users\\ivans\\Documents\\Bot-O-Joe\\models\\";
-        String file = fileName + "bot.txt";
-        File tempFile = new File(dir + file);
-        boolean isPresent = tempFile.exists();
-        return isPresent;
+    public void buildModelFile() {
+        try {
+            FileWriter modelWriter = new FileWriter( "models/" + modelName + "bot.txt", false);
+            modelWriter.write(modelName);
+            modelWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-
-
-
+    public void addBotResponse(String botResponse) {
+        try {
+            FileWriter modelWriter = new FileWriter("models/" + modelName + "bot.txt", true);
+            modelWriter.write(String.format("\n%s", botResponse));
+            modelWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
