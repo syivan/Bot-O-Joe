@@ -1,6 +1,6 @@
 package main;
 
-import actions.Interactions;
+import actions.CommandReader;
 import actions.MessageReader;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -18,7 +18,7 @@ public class BotStartUp {
         jda.setChunkingFilter(ChunkingFilter.ALL);
         jda.setMemberCachePolicy(MemberCachePolicy.ALL);
         jda.enableIntents(GatewayIntent.GUILD_MEMBERS);
-        jda.addEventListeners(new MessageReader());
+        jda.addEventListeners(new CommandReader(), new MessageReader());
         jda.build();
     }
 }

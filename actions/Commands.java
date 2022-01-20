@@ -2,13 +2,14 @@ package actions;
 
 import models.ModelBuilder;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Guild;
+
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Commands extends ListenerAdapter {
 
@@ -37,11 +38,31 @@ public class Commands extends ListenerAdapter {
             event.getMessage().reply(String.format("Whoops model %s already exists", model)).queue();
     }
 
+    public void addModelResponse(GuildMessageReceivedEvent event, String...userInput) {
+        String modelName = userInput[1];
+        String modelResponse = retrieveBotResponse(userInput);
+        if (isModelPresent(modelName)) {
+            ModelBuilder modelFile = new ModelBuilder(modelName);
+            modelFile.addBotResponse(modelResponse);
+        } else
+            //event.getAuthor().openPrivateChannel().flatMap(privateChannel -> privateChannel.sendMessage())
+            event.getMessage().reply(String.format("Welp model %s does not exist", modelName)).queue();
+    }
+
+    private String retrieveBotResponse(String... userInput) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 2; i < userInput.length; i++) {
+            sb.append(userInput[i] + " ");
+        }
+        String response = sb.toString().trim();
+        return response;
+    }
+
     private boolean isModelPresent(String model) {
+        model = model.toLowerCase();
         String fileDir = "models/" + model + "bot.txt";
         File tempFile = new File(fileDir);
         boolean isPresent = tempFile.exists();
-        System.out.println(isPresent);
         return isPresent;
     }
 
