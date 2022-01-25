@@ -9,18 +9,36 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * MessageReader is responsible for reading messages in guild channel from the member,
+ * and sending the generated response to the guild channel in which the model key was detected
+ * @author Ivan Sy
+ * @version 1.01 - 01/20/2022
+ * @see ModelReader
+ */
 public class MessageReader extends ListenerAdapter {
 
+    // list will contain the model keys
     private List<String> subjects;
 
     {
-        subjects = new ArrayList<>();
+        this.subjects = new ArrayList<>();
     }
 
+    /**
+     * constructor initializes the class instance list and
+     * stores the valid model keys into this list
+     * Note: valid model keys end in bot.txt and when read in a member message, they generate response
+     */
     public MessageReader() {
         constructSubjects();
     }
 
+    /**
+     * reads the message of the member and IF a valid model key (model name) is found in the message, a response
+     * will be generated in the same channel
+     * @param event the event to retrieve the channel the message originated from
+     */
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         List<String> messageContent = Arrays.asList(event.getMessage().getContentRaw().split(" "));
         boolean subjectFound = false;
@@ -35,6 +53,10 @@ public class MessageReader extends ListenerAdapter {
         }
     }
 
+    /*
+    responsible for reading the models directory and adding to the subjects list all the valid
+    model keys, which are denoted by ending in bot.txt
+     */
     private void constructSubjects() {
         File modelsDirectory = new File("models/");
         File[] fileList = modelsDirectory.listFiles();
