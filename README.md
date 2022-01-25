@@ -3,7 +3,7 @@
 The Bot-O-Joe is a simple interactive discord bot that reads member message and generates responses to the same channel whenever a trigger word is found. 
 It also allows the user to add models and responses.
 
-##FAQ
+## FAQ
 
 What is a trigger word? 
 - A model is assigned a trigger word/model key. A trigger word is a word that when read in a member message, 
