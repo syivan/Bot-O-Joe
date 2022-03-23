@@ -27,7 +27,7 @@ public class Commands extends ListenerAdapter {
         String embedTitle = "How to bot-O-Joe";
         String fieldConstruct = "!construct \"NAME_OF_MODEL\"";
         String descConstruct = "allows bot-O-Joe to generate responses when the name specified is found";
-        String fieldAddResponse = "!addresponse \"RESPONSE\"";
+        String fieldAddResponse = "!addresponse \"NAME_OF_MODEL\" \"RESPONSE\"" ;
         String descAddResponse = "allows user to add a response for the bot-O-Joe to use";
         embed.setTitle(embedTitle);
         embed.addField(fieldConstruct, descConstruct, false);

@@ -2,6 +2,7 @@ package main;
 
 import actions.CommandReader;
 import actions.MessageReader;
+import main.temp.ClassifiedEnvironment;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -16,13 +17,15 @@ import javax.security.auth.login.LoginException;
  */
 public class BotStartUp {
 
+    private static final ClassifiedEnvironment env = new ClassifiedEnvironment();
+
     /**
      * constructs the JDABuilder responsible for registering listeners
      * @param args Command line arguments (ignored)
      * @throws LoginException thrown when provided token in createDefault method is not valid
      */
     public static void main(String[] args) throws LoginException {
-        JDABuilder jda = JDABuilder.createDefault("OTI1MzA0Njc1MDM5ODM4MjEw.YcrLIQ.2y2stOmRWibu_6EN3Dv4epx6be0");
+        JDABuilder jda = JDABuilder.createDefault(env.retrieveToken());
         jda.setStatus(OnlineStatus.DO_NOT_DISTURB);
         jda.setChunkingFilter(ChunkingFilter.ALL);
         jda.setMemberCachePolicy(MemberCachePolicy.ALL);

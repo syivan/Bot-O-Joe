@@ -65,4 +65,12 @@ public class ModelReader {
         return modelName + "{DEBUG}" + "READER";
     }
 
+    /**
+     * returns name of the model
+     * @return name of the model
+     */
+    public String getModelName() {
+        return modelName;
+    }
+
 }
